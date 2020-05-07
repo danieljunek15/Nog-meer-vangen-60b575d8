@@ -2,7 +2,7 @@ function gooiButton() {
     try {
         bal.gooi();
     } catch (errorGooi) {
-        document.getElementById('errorMessage').innerHTML = errorGooi.message;
+        document.getElementById('errorMessage').innerHTML = errorGooi.name + ': ' + errorGooi.message;
     }
 }
 
@@ -11,12 +11,16 @@ function vangButton() {
     try {
         bal.vang();
     } catch (errorVang) {
-        document.getElementById('errorMessage').innerHTML = errorVang.message;
+        document.getElementById('errorMessage').innerHTML = errorVang.name + ': ' + errorVang.message;
     }
 }
 
 function resetButton() {
+    try {
         bal.reset();
+    } catch (errorReset) {
+        document.getElementById('errorMessage').innerHTML = errorReset.name + ': ' + errorReset.message;
+    }
 }
 
 
@@ -41,6 +45,9 @@ var bal = {
     },
 
     reset: function () {
+        if (this.balPositie == "midden") {
+            throw Error("Maak je worp af")
+        }
         this.draw(100, 250);
         this.balPositie = "links";
     },
